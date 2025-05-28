@@ -1,0 +1,114 @@
+# Fast Weather
+
+### Описание
+
+«Fast Weather» — это веб-приложение, которое взаимодействует с внешними API для предоставления актуального прогноза погоды. Приложение позволяет пользователям получать прогноз погоды на ближайшие часы через веб-интерфейс. Также для работы с прогнозами подготовлено API.
+
+
+### Стек технологий:
+
+* Python (3.12.7)
+* FastAPI
+* Pydantic
+* HTTPX
+* JINJA2
+* Docker
+
+### Как развернуть проект:
+
+Клонировать репозиторий:
+```
+git clone git@github.com:NikitaPreis/fast_weather.git
+cd fast_weather
+
+```
+
+Запустить приложение с помощью Docker Compose:
+```
+docker compose -f docker-compose.yml up --build
+```
+
+### Веб-интерфейс
+
+1. Таблица заказов, отображающая прогноз погоды, и поисковую строку.
+* **url**: http://localhost:8000/pages/weather_forecast
+* **Описание**: Страница отображает таблицу с поисковой строкой. Пользователь может выполнить поиск по городам. Например, если пользователь укажет город Москва или Берлин, в таблицу загрузятся данные: дата и время, температура, относительная вложность, дождь, облачность и видимость в соответсвии с указанным городом.
+2. **Документация**
+* **url**: http://localhost:8000/docs
+* **Описание**: Отображает документацию для сервиса.
+
+
+### API
+
+#### Доступный эндпоинт:
+
+1) **Прогноз погоды**
+* **url**: http://localhost:8000/api/v1/weather_forecast/
+* **Описание**: Эндпоинт предоставляет данные,
+* **Методы**: GET
+
+#### Примеры запросов и ответов:
+
+
+**request sample:**
+```
+Method: GET
+URL: http://localhost:8000/api/v1/weather_forecast/
+```
+
+**response sample:**
+
+```
+{
+  "name": "Москва",
+  "start_date": "2025-05-28",
+  "end_date": "2025-05-29",
+  "hourly_units": {
+    "temperature_2m": "°C",
+    "relative_humidity_2m": "%",
+    "rain": "mm",
+    "snowfall": "cm",
+    "cloud_cover": "%",
+    "visibility": "m"
+  },
+  "hourly_weather": [
+    {
+      "time": "2025-05-28T00:00:00",
+      "temperature_2m": 18.4,
+      "relative_humidity_2m": 47,
+      "rain": 0,
+      "snowfall": 0,
+      "cloud_cover": 99,
+      "visibility": 75280
+    },
+    {
+      "time": "2025-05-28T01:00:00",
+      "temperature_2m": 17.8,
+      "relative_humidity_2m": 46,
+      "rain": 0,
+      "snowfall": 0,
+      "cloud_cover": 100,
+      "visibility": 75620
+    },
+    {
+      "time": "2025-05-28T02:00:00",
+      "temperature_2m": 17.1,
+      "relative_humidity_2m": 47,
+      "rain": 0,
+      "snowfall": 0,
+      "cloud_cover": 100,
+      "visibility": 75620
+    },
+    {
+      "time": "2025-05-28T03:00:00",
+      "temperature_2m": 15.6,
+      "relative_humidity_2m": 54,
+      "rain": 0,
+      "snowfall": 0,
+      "cloud_cover": 84,
+      "visibility": 71380
+    },
+    ...
+  ]
+}
+```

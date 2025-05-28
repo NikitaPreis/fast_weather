@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fast Weather</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+
+  <body>
+		<div>
+			<header>
+				<nav class="navbar navbar-light" style="background-color: lightskyblue">
+					<div class="container">
+						<a class="navbar-brand" href="http://localhost:8000/pages/weather_forecast" width="30" height="30" class="d-inline-block align-top" alt="">
+							<b>Fast Weather</b>
+						</a>
+
+						<ul class="nav  nav-pills" >
+							<li class="nav-item">
+								<a class="nav-link {% if request.url.path == "/pages/weather_forecast" %}active{% endif %}"
+									href="http://localhost:8000/pages/weather_forecast">
+									Прогноз погоды
+								</a>
+							</li>
+					</div>
+				</nav>
+
+			</header>
+	<main>
+		<div style="text-align: center;">
+			<main class="container mt-4">
+			<h2 class="text-center mb-4">Погода в городе: {{weather_forecast.name}}</h2>
+			<form id="city-search-form" action="http://localhost:8000/pages/weather_forecast" method="GET">
+				<input class="search" type="text" name="city_name" placeholder="Узнайте погоду в городе..." size='30'>
+				<input type="submit" value="Узнать погоду">
+			</form>
+		</main>
+	</div>
+				<div class="table-responsive">
+						<table class="table table-bordered table-hover table-striped mt-3">
+						<thead class="thead-dark">
+							<tr>
+								<th>Время</th>
+								<th>Температура</th>
+								<th>Относительная влажность</th>
+								<th>Дождь</th>
+								<th>Снег</th>
+								<th>Облачность</th>
+								<th>Видимость</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for weather in weather_forecast.hourly_weather %}
+								<tr>
+									<td>{{ weather.time }}</td>
+									<td>{{ weather.temperature_2m }}<b>{{ weather_forecast.hourly_units.temperature_2m }}</b></td>
+									<td>{{ weather.relative_humidity_2m }}<b>{{ weather_forecast.hourly_units.relative_humidity_2m }}</b></td>
+									<td>{{ weather.rain }} <b>{{ weather_forecast.hourly_units.rain }}</b></td>
+									<td>{{ weather.snowfall }} <b>{{ weather_forecast.hourly_units.snowfall }}<b/></td>
+									<td>{{ weather.cloud_cover }}<b>{{ weather_forecast.hourly_units.cloud_cover }}</b></td>
+									<td>{{ weather.visibility }} <b>{{ weather_forecast.hourly_units.visibility }}</b></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				</div>
+				</main>
+				<footer class="border-top text-center py-3">
+					<p>© Fast Weather</p>    
+				</footer>
+			</div>
+  </body>
+</html>
