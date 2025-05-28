@@ -30,13 +30,19 @@ class OpenMeteoClient:
         end_date: dt.date = None
     ) -> CityWeatherForecastSchema:
         """
-        Get weather forecast for city by geo coordinates ant time period.
+        Get weather forecast for city by geo coordinates and time period.
 
         Args:
-            1) cite_coordinates (pydantic.BaseModel)
+            1) city_coordinates (pydantic.BaseModel)
             - name: str (City full name);
             - latitude: float (Geocoordinate);
             - longitude: float (Geocoordinate).
+
+            2) start_date: datetime.date
+               (Start of the period that limits the selection by date.);
+            3) end_date: datetime.date
+
+              (End of the period that limits the selection by date).
         """
         if start_date is None or end_date is None:
             start_date = (dt.datetime.now()).date()
@@ -134,9 +140,9 @@ class OpenMeteoClient:
         """
         Create list with hourly weather data objects.
 
-        Collect the data into a list of objects, each of which
-        contains all the information about
-        the weather at a specific point in time.
+        Collect the data into a list of objects,
+        so each object contains all the information that
+        describes the weather at a specific point in time.
         """
 
         hourly_weather_schema_list = []
